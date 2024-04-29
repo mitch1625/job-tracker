@@ -1,13 +1,13 @@
 from django.db import models
 from django.core.validators import validate_email
+from django.contrib.auth.models import AbstractUser
 
-class User(models.Model):
+class User(AbstractUser):
   email = models.EmailField(
-    max_length=50,
+    max_length=150,
     unique=True,
-    verbose_name="email address",
-    validators=[validate_email])
+    validators=[validate_email],
+    )
   
   USERNAME_FIELD = "email"
   REQUIRED_FIELDS = []
-
