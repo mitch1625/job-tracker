@@ -1,53 +1,89 @@
 import { Modal } from "react-bootstrap"
-import React, { ChangeEvent, useState} from "react";
+import React, { ChangeEvent, FormEvent, useState} from "react";
 
+type LoginValues = {
+  email:string,
+  password:string
+}
 
-// how to define props?
 const RegistrationModal = (props:any): JSX.Element => {
-  type LoginValues = {
-    email:string,
-    password:string
-  }
-
   const [loginInfo, setLoginInfo] = useState<LoginValues>({
     email:"",
     password:""
   })
+  const [newUser, setNewUser] = useState(false)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLoginInfo({...loginInfo, [event.target.name]: event.target.value})
   }
 
-  const handleSubmit = (event:FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     console.log(loginInfo)
   }
+ //// Maybe add separate login modal? Need to consider conditional on get or post method regarding login / sign up
   return (
     <>
       <Modal show={props.show}  animation={false}>
         <Modal.Header closeButton onClick={props.handleClose}>
-          <Modal.Title>Sign In / Register</Modal.Title>
+          <Modal.Title>Sign In / Create Account</Modal.Title>
         </Modal.Header>
-        <form onSubmit={(e)=>handleSubmit(e)}> {/*needs submit function*/}
+        <form onSubmit={(e)=>handleSubmit(e)}>
+          {!newUser  ? 
+          <div> {/* Displys the login form for returning users*/}
+            <Modal.Body>
+                <input onChange={(e)=>{handleChange(e)}}
+                  name={'email'}
+                  placeholder="Email"
+                  />
+                <input
+                  name={'password'}
+                  placeholder="Password" 
+                  type="password"
+                  onChange={(e)=>handleChange(e)}
+                  />
+            </Modal.Body>
+            <Modal.Footer>
+              <button 
+              className="border-2 border-black"
+              type={'submit'}>
+                Sign In
+              </button>
+              <div>
+                Don't have an account? 
+                <div className="cursor-pointer text-blue-700" onClick={()=>setNewUser(!newUser)}>Register</div>
+              </div>
+            </Modal.Footer>
+          </div>
+      :
+      <div> {/* Registration form */}
         <Modal.Body>
-            <input onChange={(e)=>{handleChange(e)}}
-              name={'email'}
-              placeholder="Email"
+          <input onChange={(e)=>{handleChange(e)}}
+            name={'email'}
+            placeholder="Email"
             />
-            <input
-              name={'password'}
-              placeholder="Password" 
-              type="password"
-              onChange={(e)=>handleChange(e)}
+          <input
+            name={'password'}
+            placeholder="Password" 
+            type="password"
+            onChange={(e)=>handleChange(e)}
             />
         </Modal.Body>
         <Modal.Footer>
           <button 
           className="border-2 border-black"
           type={'submit'}>
-            Sign In
+            Create Account
           </button>
+          <div>
+            Already have an account? 
+            <div className="cursor-pointer text-blue-700" onClick={()=>setNewUser(!newUser)}>
+              Sign In
+            </div>
+          </div>
         </Modal.Footer>
+      </div>
+      }
         </form>
       </Modal>
     </>
