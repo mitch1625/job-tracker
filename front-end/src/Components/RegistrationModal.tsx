@@ -9,6 +9,7 @@ type LoginValues = {
 }
 
 const RegistrationModal = (props:any): JSX.Element => {
+  const [newUser, setNewUser] = useState(false)
   const [loginInfo, setLoginInfo] = useState<LoginValues>({
     email:"",
     password:""
@@ -26,9 +27,9 @@ const RegistrationModal = (props:any): JSX.Element => {
           console.log(err)
       }
     })
-    if (response.status === 200) {
-      setUser
-    }
+    // if (response.status === 200) {
+    //   setUser
+    // }
   } 
 
 // handle Functions
