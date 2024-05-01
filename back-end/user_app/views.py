@@ -40,3 +40,12 @@ class Login(APIView):
       login(request, user)
       return Response({"user":user.email, "token":token.key})
     return Response("Improper credentials", status=HTTP_404_NOT_FOUND)
+  
+class UserPermissions(APIView):
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
+
+class LogOut(UserPermissions):
+  def post(self, request):
+    request.user.auth_token.delete()
+    return Response(status=HTTP_204_NO_CONTENT)
