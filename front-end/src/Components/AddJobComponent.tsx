@@ -1,14 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 
 const AddJobComponent = () => {
-  type Values = {
+  type JobValues = {
     companyName: string,
     date: string,
     roleTitle: string,
     location: string
   }
 
-    const [jobInfo, setJobInfo] = useState<Values>({
+    const [jobInfo, setJobInfo] = useState<JobValues>({
       companyName:"",
       date:"",
       roleTitle:"",
