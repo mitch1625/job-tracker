@@ -1,5 +1,7 @@
 import { Modal } from "react-bootstrap"
 import React, { ChangeEvent, FormEvent, useState} from "react";
+import { api } from "../utilities";
+import axios from "axios"
 
 type LoginValues = {
   email:string,
@@ -7,12 +9,30 @@ type LoginValues = {
 }
 
 const RegistrationModal = (props:any): JSX.Element => {
+  const [newUser, setNewUser] = useState(false)
   const [loginInfo, setLoginInfo] = useState<LoginValues>({
     email:"",
     password:""
   })
-  const [newUser, setNewUser] = useState(false)
 
+
+  const login = async(e:Event) => {
+    e.preventDefault()
+    let response = await api.post("users/login/", {
+      email:loginInfo.email,
+      password:loginInfo.password
+    })
+    .catch((err) => {
+      if (err.response.status === 404) {
+          console.log(err)
+      }
+    })
+    // if (response.status === 200) {
+    //   setUser
+    // }
+  } 
+
+// handle Functions
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLoginInfo({...loginInfo, [event.target.name]: event.target.value})
   }
@@ -21,7 +41,7 @@ const RegistrationModal = (props:any): JSX.Element => {
     event.preventDefault()
     console.log(loginInfo)
   }
- //// Maybe add separate login modal? Need to consider conditional on get or post method regarding login / sign up
+
   return (
     <>
       <Modal show={props.show}  animation={false}>
