@@ -1,7 +1,8 @@
-import { Modal } from "react-bootstrap"
+import { Button, Modal } from "react-bootstrap"
 import React, { ChangeEvent, FormEvent, useState} from "react";
 import { api } from "../utilities";
 import axios from "axios"
+import SubmitButtonComponent from "./SubmitButtonComponent";
 
 type LoginValues = {
   email:string,
@@ -64,11 +65,7 @@ const RegistrationModal = (props:any): JSX.Element => {
                   />
             </Modal.Body>
             <Modal.Footer>
-              <button 
-              className="border-2 border-black"
-              type={'submit'}>
-                Sign In
-              </button>
+              <SubmitButtonComponent title="Login"/>
               <div>
                 Don't have an account? 
                 <div className="cursor-pointer text-blue-700" onClick={()=>setNewUser(!newUser)}>Register</div>
@@ -90,11 +87,7 @@ const RegistrationModal = (props:any): JSX.Element => {
             />
         </Modal.Body>
         <Modal.Footer>
-          <button 
-          className="border-2 border-black"
-          type={'submit'}>
-            Create Account
-          </button>
+          <SubmitButtonComponent title="Create Account"/>
           <div>
             Already have an account? 
             <div className="cursor-pointer text-blue-700" onClick={()=>setNewUser(!newUser)}>
