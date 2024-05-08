@@ -1,7 +1,9 @@
-import { Modal } from "react-bootstrap"
+import { Button, Modal } from "react-bootstrap"
 import React, { ChangeEvent, FormEvent, useState} from "react";
 import { api } from "../utilities";
 import axios from "axios"
+import SubmitButtonComponent from "./SubmitButtonComponent";
+import { useOutletContext } from "react-router-dom";
 
 type LoginValues = {
   email:string,
@@ -9,7 +11,8 @@ type LoginValues = {
 }
 
 const RegistrationModal = (props:any): JSX.Element => {
-  const [newUser, setNewUser] = useState(false)
+  const [newUser, setNewUser] = useState(false) // this provides conditional rendering for register / login modal
+  const {user,setUser} = useOutletContext()
   const [loginInfo, setLoginInfo] = useState<LoginValues>({
     email:"",
     password:""
@@ -64,11 +67,7 @@ const RegistrationModal = (props:any): JSX.Element => {
                   />
             </Modal.Body>
             <Modal.Footer>
-              <button 
-              className="border-2 border-black"
-              type={'submit'}>
-                Sign In
-              </button>
+              <SubmitButtonComponent title="Login"/>
               <div>
                 Don't have an account? 
                 <div className="cursor-pointer text-blue-700" onClick={()=>setNewUser(!newUser)}>Register</div>
@@ -90,11 +89,7 @@ const RegistrationModal = (props:any): JSX.Element => {
             />
         </Modal.Body>
         <Modal.Footer>
-          <button 
-          className="border-2 border-black"
-          type={'submit'}>
-            Create Account
-          </button>
+          <SubmitButtonComponent title="Create Account"/>
           <div>
             Already have an account? 
             <div className="cursor-pointer text-blue-700" onClick={()=>setNewUser(!newUser)}>
