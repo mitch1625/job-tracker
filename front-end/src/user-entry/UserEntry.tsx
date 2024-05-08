@@ -6,7 +6,10 @@ import SubmitButtonComponent from "../components/SubmitButtonComponent";
 import { useOutletContext } from "react-router-dom";
 import type {UserEntry} from "./UserEntry.types.ts"
 
-
+interface Response {
+  status: number,
+  data:object
+}
 
 const UserEntryModal = (props:any): JSX.Element => {
   const [newUser, setNewUser] = useState(false) // this provides conditional rendering for register / login modal
@@ -16,10 +19,10 @@ const UserEntryModal = (props:any): JSX.Element => {
     password:""
   })
 
-
+// *** LEFT OFF HERE. WORKING WITH ASSIGNING A RESPONSE INTERFACE TO AXIOS RESPONSE. WORKING IN BROWSER AND SERVER, NOT COMPILING WITH TS
   const login = async(e:Event) => {
-    e.preventDefault()
-    let response = await api.post("users/login/", {
+    // e.preventDefault()
+    await api.post<Response>("users/login/", {
       email:userEntry.email,
       password:userEntry.password
     })
@@ -28,9 +31,13 @@ const UserEntryModal = (props:any): JSX.Element => {
           console.log(err)
       }
     })
-    // if (response.status === 200) {
-    //   setUser
-    // }
+    .then((response) => {
+
+      if (response.status === 200) {
+        console.log(response.data)
+        // setUser(response.data)
+      }
+    })
   } 
 
 // handle Functions
@@ -40,7 +47,7 @@ const UserEntryModal = (props:any): JSX.Element => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    console.log(userEntry)
+    login(userEntry)
   }
 
   return (
