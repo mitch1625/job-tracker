@@ -1,5 +1,5 @@
 import { useState } from "react"
-import RegistrationModal from "./RegistrationModal"
+import UserEntryModal from "../user-entry/UserEntry"
 
 
 const Navbar  = () => { 
@@ -10,7 +10,7 @@ const Navbar  = () => {
 
   return (
     <>
-    <RegistrationModal
+    <UserEntryModal
       show={show}
       handleClose={handleClose}
       handleShow={handleShow}
