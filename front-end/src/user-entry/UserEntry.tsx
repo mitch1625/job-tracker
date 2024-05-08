@@ -2,18 +2,16 @@ import { Button, Modal } from "react-bootstrap"
 import React, { ChangeEvent, FormEvent, useState} from "react";
 import { api } from "../utilities";
 import axios from "axios"
-import SubmitButtonComponent from "./SubmitButtonComponent";
+import SubmitButtonComponent from "../components/SubmitButtonComponent";
 import { useOutletContext } from "react-router-dom";
+import type {UserEntry} from "./UserEntry.types.ts"
 
-type LoginValues = {
-  email:string,
-  password:string
-}
 
-const RegistrationModal = (props:any): JSX.Element => {
+
+const UserEntryModal = (props:any): JSX.Element => {
   const [newUser, setNewUser] = useState(false) // this provides conditional rendering for register / login modal
-  const {user,setUser} = useOutletContext()
-  const [loginInfo, setLoginInfo] = useState<LoginValues>({
+  // const {user,setUser} = useOutletContext()
+  const [userEntry, setUserEntry] = useState<UserEntry>({
     email:"",
     password:""
   })
@@ -22,8 +20,8 @@ const RegistrationModal = (props:any): JSX.Element => {
   const login = async(e:Event) => {
     e.preventDefault()
     let response = await api.post("users/login/", {
-      email:loginInfo.email,
-      password:loginInfo.password
+      email:userEntry.email,
+      password:userEntry.password
     })
     .catch((err) => {
       if (err.response.status === 404) {
@@ -37,12 +35,12 @@ const RegistrationModal = (props:any): JSX.Element => {
 
 // handle Functions
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setLoginInfo({...loginInfo, [event.target.name]: event.target.value})
+    setUserEntry({...userEntry, [event.target.name]: event.target.value})
   }
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    console.log(loginInfo)
+    console.log(userEntry)
   }
 
   return (
@@ -105,4 +103,4 @@ const RegistrationModal = (props:any): JSX.Element => {
   )
 }
 
-export default RegistrationModal
+export default UserEntryModal
