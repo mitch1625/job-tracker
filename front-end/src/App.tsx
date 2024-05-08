@@ -1,5 +1,5 @@
 import './App.css'
-import Navbar from './Components/Navbar'
+import Navbar from './components/Navbar'
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 

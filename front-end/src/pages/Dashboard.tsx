@@ -1,5 +1,5 @@
-import AddJobComponent from "../Components/AddJobComponent"
-import JobListComponent from "../Components/JobListComponent"
+import AddJobComponent from "../components/AddJobComponent"
+import JobListComponent from "../components/JobListComponent"
 
 const Dashboard = () => {
   return (
