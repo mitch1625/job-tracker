@@ -1,14 +1,17 @@
 import { Button, Modal } from "react-bootstrap"
 import React, { ChangeEvent, FormEvent, useState} from "react";
 import { api } from "../utilities";
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import SubmitButtonComponent from "../components/SubmitButtonComponent";
 import { useOutletContext } from "react-router-dom";
-import type {UserEntry} from "./UserEntry.types.ts"
+import type {UserEntry, User} from "./UserEntry.types.ts"
 
 interface Response {
   status: number,
-  data:object
+  data : {
+    user:string,
+    token:string
+  }
 }
 
 const UserEntryModal = (props:any): JSX.Element => {
@@ -19,7 +22,6 @@ const UserEntryModal = (props:any): JSX.Element => {
     password:""
   })
 
-// *** LEFT OFF HERE. WORKING WITH ASSIGNING A RESPONSE INTERFACE TO AXIOS RESPONSE. WORKING IN BROWSER AND SERVER, NOT COMPILING WITH TS
   const login = async(e:Event) => {
     // e.preventDefault()
     await api.post<Response>("users/login/", {
@@ -31,13 +33,16 @@ const UserEntryModal = (props:any): JSX.Element => {
           console.log(err)
       }
     })
-    .then((response) => {
+    .then((response: AxiosResponse<Response> | void) => {
+      if(response) {
 
-      if (response.status === 200) {
-        console.log(response.data)
-        // setUser(response.data)
+        console.log(response)
+        if (response.status === 200) {
+          console.log(response.data)
+          //   // setUser(response.data)
+        }
       }
-    })
+      })
   } 
 
 // handle Functions
