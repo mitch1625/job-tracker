@@ -19,8 +19,7 @@ const UserEntryModal = (props:any): JSX.Element => {
 
   const handleSubmit = async(event: FormEvent) => {
     event.preventDefault()
-    const response = await Login(userEntry)
-    console.log(response)
+    await Login(userEntry)
   }
 
   return (

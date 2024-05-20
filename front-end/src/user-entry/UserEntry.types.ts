@@ -7,4 +7,13 @@ type UserEntry = {
   password:string
 }
 
-export type { User, UserEntry }
+interface Response {
+  status: number,
+  data : {
+    user:string,
+    token:string
+  },
+  token:string
+}
+
+export type { User, UserEntry, Response }
