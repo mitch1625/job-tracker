@@ -1,6 +1,8 @@
 import { AxiosResponse } from "axios";
 import { api } from "../../utilities";
 import { UserEntry } from "../UserEntry.types";
+import { useOutletContext } from "react-router-dom";
+import { User } from "../UserEntry.types";
 
 interface LoginResponse {
   status: number,

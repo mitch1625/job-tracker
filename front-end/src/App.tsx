@@ -11,10 +11,12 @@ function App() {
   const getInfo = async() => {
     const token = localStorage.getItem("token")
     if (token) {
+      console.log(token)
       api.defaults.headers.common["Authorization"] = `Token ${token}`
       const response = await api.get("users/info/")
-      console.log(response)
+      // console.log(response)
       setUser(response.data.email)
+      // console.log(user)
     }
   }
 
@@ -25,7 +27,7 @@ function App() {
   return (
     <>
     <Navbar/>
-    <Outlet context={{setUser,user}}/>
+    <Outlet context={{user}}/>
     </>
   )
 }
