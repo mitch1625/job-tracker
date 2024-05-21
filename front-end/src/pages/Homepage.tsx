@@ -1,4 +1,8 @@
+import { useOutletContext } from "react-router-dom"
+
 const Homepage = () => {
+  const {user} = useOutletContext()
+  
   return (
     <>
       <h1>
@@ -9,6 +13,11 @@ const Homepage = () => {
       </button>
       <div>
         There is going to be an image here
+      </div>
+      <div>
+        {user ? "logged in"
+        :
+        "logged out"}
       </div>
     </>
   )
