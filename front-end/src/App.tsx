@@ -13,7 +13,7 @@ function App() {
     if (token) {
       console.log(token)
       api.defaults.headers.common["Authorization"] = `Token ${token}`
-      const response = await api.get("users/info/")
+      const response = await api.get("users/userinfo/")
       // console.log(response)
       setUser(response.data.email)
       // console.log(user)
