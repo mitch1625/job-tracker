@@ -13,6 +13,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404
 from .models import User
+from .serializers import UserSerializer
 
 class SignUp(APIView):
   def post(self, request):
@@ -44,6 +45,11 @@ class Login(APIView):
 class UserPermissions(APIView):
   authentication_classes = [TokenAuthentication]
   permission_classes = [IsAuthenticated]
+
+class UserInfo(UserPermissions):
+  def get(self, request):
+    user = UserSerializer(request.user)
+    return Response(user.data)
 
 class LogOut(UserPermissions):
   def post(self, request):
