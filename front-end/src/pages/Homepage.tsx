@@ -1,8 +1,8 @@
-import { useOutletContext } from "react-router-dom"
+import { useUser } from "../user-entry/UserEntry.types"
 
 const Homepage = () => {
-  const {user} = useOutletContext()
-  
+  const {user} = useUser()
+
   return (
     <>
       <h1>

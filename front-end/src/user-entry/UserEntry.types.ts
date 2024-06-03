@@ -1,3 +1,5 @@
+import { useOutletContext } from "react-router-dom"
+
 type User = {
   email:string
 }
@@ -16,4 +18,12 @@ interface Response {
   token:string
 }
 
-export type { User, UserEntry, Response }
+type UserContext = {
+  user: User | null
+}
+
+export function useUser() {
+  return useOutletContext<UserContext>()
+}
+
+export type { User, UserEntry, Response, UserContext }
