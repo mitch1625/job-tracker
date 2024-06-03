@@ -1,12 +1,12 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import UserEntryModal from "../user-entry/UserEntry"
-import { useUser } from "../user-entry/UserEntry.types";
+import { NavBarProp } from "../user-entry/UserEntry.types";
 
-const Navbar  = () => { 
+
+const Navbar: React.FC<NavBarProp> = ({user}) => { 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const user = useUser()
 
   return (
     <>
@@ -18,16 +18,16 @@ const Navbar  = () => {
       <nav className="border-2 border-black">
         <ul>
           <li>
-            LOGO HEADER
+            LOGO 
           </li>
           <li>
             {user ? 
-            <button onClick={()=> handleShow()}>
-              Login / Sign Up   
-            </button>
-            :
             <button onClick={()=>{console.log('loggin out')}}>
               Logout
+            </button>
+            :
+            <button onClick={()=> handleShow()}>
+              Login / Sign Up   
             </button>
             }
           </li>

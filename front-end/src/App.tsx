@@ -5,6 +5,8 @@ import { Outlet } from 'react-router-dom'
 import type {User} from "./user-entry/UserEntry.types"
 import { api } from './utilities'
 
+
+
 function App() {
   const [user, setUser] = useState<User | null>(null)
 
@@ -15,7 +17,7 @@ function App() {
       api.defaults.headers.common["Authorization"] = `Token ${token}`
       const response = await api.get("users/userinfo/")
       // console.log(response)
-      setUser(response.data.email)
+      // setUser(response.data.email)
       // console.log(user)
     }
   }
@@ -26,8 +28,8 @@ function App() {
 
   return (
     <>
-    <Navbar/>
-    <Outlet context={{user}}/>
+    <Navbar user={user}/>
+    <Outlet context={{user, setUser}}/>
     </>
   )
 }

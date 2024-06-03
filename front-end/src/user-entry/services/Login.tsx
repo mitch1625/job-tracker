@@ -21,12 +21,13 @@ const Login = async(userEntry:UserEntry) => {
       }
     )
       if (response.status === 200) {
-        console.log(response)
+        // console.log(response)
         localStorage.setItem("token", response.data.token)
         api.defaults.headers.common[
           "Authorization"
         ] = `Token ${response.data.token}`
-        return response.data
+        // location.reload()
+        return response.data.user
       }
   } 
     catch(err) {

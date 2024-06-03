@@ -26,4 +26,8 @@ export function useUser() {
   return useOutletContext<UserContext>()
 }
 
-export type { User, UserEntry, Response, UserContext }
+interface NavBarProp {
+  user: User | null
+}
+
+export type { User, UserEntry, Response, UserContext, NavBarProp }
